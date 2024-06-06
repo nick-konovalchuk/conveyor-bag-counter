@@ -1,8 +1,11 @@
+from typing import List
+
 import numpy as np
+from ultralytics.engine.results import Results
 
 
 class BagCounter:
-    def __init__(self, p1, p2):
+    def __init__(self, p1: List, p2: List) -> None:
         m = (p2[1] - p1[1]) / (p2[0] - p1[0])
         theta = np.arctan(m)
         self._rotation_matrix = np.array(
@@ -12,7 +15,7 @@ class BagCounter:
         self._state = {}
         self.count = 0
 
-    def update(self, predictions):
+    def update(self, predictions: Results) -> None:
         ids = predictions.boxes.id.int().tolist()
         centers = predictions.boxes.xywh[:, :2].numpy().astype(int)
         rotated_centers = centers @ self._rotation_matrix.T

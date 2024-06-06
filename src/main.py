@@ -1,14 +1,13 @@
 import tempfile
 
+from bag_counter import BagCounter
 import cv2
 import streamlit as st
 from ultralytics import YOLO
 
-from bag_counter import BagCounter
-
 
 @st.cache_resource
-def get_model():
+def get_model() -> YOLO:
     return YOLO("../best.pt")
 
 
@@ -42,6 +41,4 @@ if video is not None:
         st.balloons()
         st.header("")
         message = f"{counter.count} bag{'s' if counter.count != 1 else ''}"
-        st.markdown(
-            f"<h1 style='text-align: center;'>{message}</h1>", unsafe_allow_html=True
-        )
+        st.markdown(f"<h1 style='text-align: center;'>{message}</h1>", unsafe_allow_html=True)
