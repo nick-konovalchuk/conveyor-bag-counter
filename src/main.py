@@ -12,8 +12,8 @@ def get_model() -> YOLO:
 
 
 FPS = 5
-thr_p1 = [0, 100]
-thr_p2 = [600, 360]
+THRESHOLD_P1 = [0, 100]
+THRESHOLD_P2 = [600, 360]
 
 st.title("Conveyor Bag Counter")
 
@@ -22,7 +22,7 @@ video = st.file_uploader("Video Uploader")
 model = get_model()
 
 if video is not None:
-    counter = BagCounter(thr_p1, thr_p2)
+    counter = BagCounter(THRESHOLD_P1, THRESHOLD_P2)
     with tempfile.NamedTemporaryFile("wb") as f:
         f.write(video.getbuffer())
         cap = cv2.VideoCapture(f.name)
