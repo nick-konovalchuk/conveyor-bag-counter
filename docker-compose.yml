@@ -1,5 +1,16 @@
 services:
-  bag-counter:
+  cpu:
     build: .
     ports:
       - 5000:5000
+  gpu:
+    build: .
+    ports:
+      - 5000:5000
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
